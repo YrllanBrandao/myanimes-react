@@ -1,0 +1,12 @@
+
+.main-menu{
+    font-size: 16px;
+    color: #FFF;
+}
+.icon{
+    color: #4e31aa;
+}
+.icon:hover{
+    cursor: pointer;
+    color: #462d97;
+}
