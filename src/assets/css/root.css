@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+:root{
+    --primary-color: #3e2788;
+    --primary-color-shadow: #34226e;
+    --secondary-color: #4e30aa;
+    --fontDefault: 'Poppins', sans-serif;
+}
 *{
     margin: 0;
     padding: 0;
@@ -5,4 +12,16 @@
     list-style: none;
     text-decoration: none;
     font-size: 16px;
+    font-family: var(--fontDefault);
+}
+
+.mobile-only{
+    display: none;
+}
+
+@media(max-width: 768px)
+{
+    .mobile-only{
+        display: flex;
+    }
 }
