@@ -4,6 +4,7 @@
     --primary-color-shadow: #34226e;
     --secondary-color: #4e30aa;
     --fontDefault: 'Poppins', sans-serif;
+    --sizer: 1rem
 }
 *{
     margin: 0;
@@ -13,7 +14,11 @@
     text-decoration: none;
     font-size: 16px;
     font-family: var(--fontDefault);
+    
 }
+
+
+
 
 .mobile-only{
     display: none;

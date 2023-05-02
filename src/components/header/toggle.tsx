@@ -12,7 +12,7 @@ const Toggle = () => {
 
   return (
     <>
-      <button className={`btn-toggle mobile-only`} onClick={()=>setOpenMenu(!openMenu)}>
+      <button className={`btn-toggle mobile-only ${openMenu ? 'active' : ''}`} onClick={()=>setOpenMenu(!openMenu)}>
         {openMenu ? (
           <Icon icon="line-md:menu-to-close-transition" width="30" height="30" />
         ) : (

@@ -1,0 +1,35 @@
+.grid-anime-home{
+    width: 60%;
+    max-height: 50vh;
+    display: flex;
+    z-index: 3;
+    justify-content: center;
+    border: 1px dotted gray;
+}
+
+
+.grid-anime-item-home{
+    background: red;
+    border-radius: 10px;
+    aspect-ratio: 2 / 1.30;
+    transform: scale(1);
+    transition: transform 200ms ease-in-out;
+}
+.grid-anime-item-home:hover{
+    transform: scale(1.05);
+}
+
+@media screen and (max-width:500px) {
+    
+    .grid-anime-home{
+        width: 100%;
+        border: 1px solid red;
+        grid-template-columns: repeat(auto-fill, minmax(7rem, 40%));
+        align-items: center;
+        justify-content: center;
+        height: auto;
+    }
+    .grid-anime-item-home{
+        aspect-ratio: 2 / 1.4;
+    }
+}

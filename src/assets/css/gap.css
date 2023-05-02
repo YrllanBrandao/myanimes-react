@@ -1,0 +1,15 @@
+.gap-1{
+    gap: var(--sizer);
+}
+.gap-2{
+    gap: calc( var(--sizer ) * 1.4);
+}
+.gap-3{
+    gap: calc( var(--sizer ) * 1.8);
+}
+.gap-4{
+    gap: calc( var(--sizer ) * 2);
+}
+.gap-5{
+    gap: calc( var(--sizer ) * 2.2 );
+}
