@@ -8,16 +8,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const Routes = express_1.default.Router();
-// models
-const anime_1 = __importDefault(require("../models/anime"));
-Routes.post("/anime", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const anime = new anime_1.default();
-    anime.registerAnime(req, res);
-}));
-exports.default = Routes;
+class User {
+    constructor() {
+        this.registerAnime = (req, res) => __awaiter(this, void 0, void 0, function* () {
+        });
+    }
+}
