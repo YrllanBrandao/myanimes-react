@@ -15,17 +15,40 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../database/database"));
 class Anime {
     constructor() {
-        this._animeVerify = (name) => {
-            const result = (0, database_1.default)("animes").select().where({ name });
+        this._verifyById = (id) => __awaiter(this, void 0, void 0, function* () {
+            const result = yield (0, database_1.default)("animes").select().where({ id });
             if (result[0] !== undefined) {
                 return true;
             }
             return false;
-        };
+        });
+        this._verifyByName = (name) => __awaiter(this, void 0, void 0, function* () {
+            const result = yield (0, database_1.default)("animes").select().where({ name });
+            if (result[0] !== undefined) {
+                return true;
+            }
+            return false;
+        });
+        this.deleteAnime = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const id = req.params.id;
+                const exist = yield this._verifyById(id);
+                if (exist) {
+                    const query = yield (0, database_1.default)("animes").delete("*").where({ id });
+                    res.status(200).send(query);
+                }
+                else {
+                    res.status(404).send("anime not found");
+                }
+            }
+            catch (error) {
+                res.status(400).send(error.sqlMessage);
+            }
+        });
         this.registerAnime = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const anime = req.body;
-                const existAnime = this._animeVerify(anime.name);
+                const existAnime = yield this._verifyByName(anime.name);
                 if (!existAnime) {
                     yield (0, database_1.default)("animes").insert({
                         name: anime.name,
@@ -39,6 +62,29 @@ class Anime {
             }
             catch (error) {
                 res.status(400).send(error.sqlMessage);
+            }
+        });
+        this.updateAnime = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const newAnime = req.body;
+                const { id } = req.body;
+                if (!newAnime) {
+                    res.status(400).send("Incorrect fields, please check and try again");
+                }
+                if (!id) {
+                    res.status(400).send("Fild ID unavailable");
+                }
+                const exist = yield this._verifyById(id);
+                if (exist) {
+                    yield (0, database_1.default)("animes").update(newAnime).where({ id });
+                    res.status(200).send("Updated!");
+                }
+                else {
+                    res.status(400).send("incorrect ID");
+                }
+            }
+            catch (error) {
+                res.status(error.status).send(error.sqlMessage);
             }
         });
     }

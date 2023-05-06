@@ -20,4 +20,12 @@ Routes.post("/anime", (req, res) => __awaiter(void 0, void 0, void 0, function* 
     const anime = new anime_1.default();
     anime.registerAnime(req, res);
 }));
+Routes.put("/anime", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const anime = new anime_1.default();
+    anime.updateAnime(req, res);
+}));
+Routes.delete("/anime/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const anime = new anime_1.default();
+    anime.deleteAnime(req, res);
+}));
 exports.default = Routes;

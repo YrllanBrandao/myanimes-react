@@ -14,11 +14,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const globals_1 = require("@jest/globals");
 const server_1 = __importDefault(require("../../server"));
-const supertest_1 = __importDefault(require("supertest"));
 const anime_1 = __importDefault(require("../../models/anime"));
-console.log(process.env.DB_PASSWORD);
+const supertest_1 = __importDefault(require("supertest"));
 const anime = new anime_1.default();
 const newAnime = {
+    id: 1,
     name: "overlord",
     numberEpisode: 1,
     synopsis: "anything...",
@@ -26,16 +26,23 @@ const newAnime = {
     coverPageUrl: "overlord-thumb.com"
 };
 (0, globals_1.describe)("verifying  if the anime already exist", () => {
-    (0, globals_1.test)("it should return  a boolean", () => {
-        const result = anime._animeVerify(newAnime.name);
+    const INVALID_NAME = "noone";
+    (0, globals_1.test)("it should return  a boolean", () => __awaiter(void 0, void 0, void 0, function* () {
+        const result = yield anime._verifyByName(INVALID_NAME);
         (0, globals_1.expect)(result).toBe(false);
-    });
+    }));
 });
-(0, globals_1.describe)("POST /registerAnime", () => {
-    (0, globals_1.test)("it should returns status 201 if the data is passed", () => __awaiter(void 0, void 0, void 0, function* () {
+(0, globals_1.describe)("verifying  if the anime already exist by id", () => {
+    (0, globals_1.test)("it should return  false", () => __awaiter(void 0, void 0, void 0, function* () {
+        const FAKE_ID = 33;
+        const result = yield anime._verifyById(FAKE_ID);
+        (0, globals_1.expect)(result).toBe(false);
+    }));
+});
+(0, globals_1.describe)("verifying if the register anime exist before delete him", () => {
+    it("it should return false", () => __awaiter(void 0, void 0, void 0, function* () {
         const res = yield (0, supertest_1.default)(server_1.default)
-            .post("/user")
-            .send(newAnime);
-        (0, globals_1.expect)(res.status).toEqual(201);
+            .delete("/anime/23");
+        (0, globals_1.expect)(res.status).toEqual(404);
     }));
 });

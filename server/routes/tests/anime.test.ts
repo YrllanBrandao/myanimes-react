@@ -2,11 +2,11 @@ import { describe, expect, test } from "@jest/globals";
 import server from '../../server';
 import request from 'supertest';
 import Anime from "../../models/anime";
-import dotenv from 'dotenv'
-console.log(process.env.DB_PASSWORD)
+import supertest from "supertest";
 const anime = new Anime();
 
 const newAnime = {
+    id: 1,
     name: "overlord",
     numberEpisode: 1,
     synopsis: "anything...",
@@ -16,21 +16,30 @@ const newAnime = {
 
 describe("verifying  if the anime already exist", ()=>{
 
-   test("it should return  a boolean", ()=>{
-    const result = anime._animeVerify(newAnime.name);
+    const INVALID_NAME = "noone";
+   test("it should return  a boolean", async ()=>{
+    const result = await anime._verifyByName(INVALID_NAME);
 
-    expect(result).toBe(false)
+    expect(result).toBe(false);
    })
 })
-describe("POST /registerAnime", ()=>{
+describe("verifying  if the anime already exist by id", ()=>{
 
-    test("it should returns status 201 if the data is passed", async ()=>{
-        const  res:any = await request(server)
-        .post("/user")
-        .send(newAnime);
-        expect(res.status).toEqual(201);
+    test("it should return  false", async ()=>{
+        const FAKE_ID = 33;
+     const result = await anime._verifyById(FAKE_ID);
+ 
+     expect(result).toBe(false);
     })
-})
+ })
 
 
-
+describe("verifying if the register anime exist before delete him", ()=>{
+   
+    it("it should return false", async ()=>{
+        const res = await  supertest(server)
+        .delete("/anime/23");
+        
+        expect(res.status).toEqual(404);
+    })
+})  
